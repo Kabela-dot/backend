@@ -23,48 +23,48 @@ public class employeecontroller implements employeeApi {
     }
 
     @Override
-    public employeeDto Save(employeeDto dto) {
-        return employeeService.Save(dto);
+    public employeeDto save(employeeDto dto) {
+        return employeeService.save(dto);
     }
 
     @Override
-    public employeeDto FindById(Long id) {
-        return employeeService.FindById(id);
+    public employeeDto findById(Long id) {
+        return employeeService.findById(id);
     }
 
     @Override
-    public employeeDto FindByLastname(String lastname) {
-        return employeeService.FindByLastname(lastname);
+    public employeeDto findByLastname(String lastname) {
+        return employeeService.findByLastname(lastname);
     }
 
     @Override
-    public employeeDto FindByFirstname(String firstname) {
-        return employeeService.FindByFirstname(firstname);
+    public employeeDto findByFirstname(String firstname) {
+        return employeeService.findByFirstname(firstname);
     }
 
     @Override
-    public employeeDto FindByAdress(String adress) {
-        return employeeService.FindByAdress(adress);
+    public employeeDto findByAdress(String adress) {
+        return employeeService.findByAdress(adress);
     }
 
     @Override
-    public employeeDto FindByGender(String gender) {
-        return employeeService.FindByGender(gender);
+    public employeeDto findByGender(String gender) {
+        return employeeService.findByGender(gender);
     }
 
     @Override
-    public employeeDto FindByBirthday(Date birthday) {
-        return employeeService.FindByBirthday(birthday);
+    public employeeDto findByBirthday(Date birthday) {
+        return employeeService.findByBirthday(birthday);
     }
 
     @Override
-    public employeeDto FindBySsin(String ssin) {
-        return employeeService.FindBySsin(ssin);
+    public employeeDto findBySsin(String ssin) {
+        return employeeService.findBySsin(ssin);
     }
 
     @Override
-    public List<employeeDto> FindAll() {
-        return employeeService.FindAll();
+    public List<employeeDto> findAll() {
+        return employeeService.findAll();
     }
 
     @Override

@@ -1,22 +1,37 @@
 package ipeps.pwd.wallet.modele.gestionSalary;
 
 import ipeps.pwd.wallet.modele.AbstractEntity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import ipeps.pwd.wallet.modele.gestionEmployees.employee;
+import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.util.Date;
 
+
 @Entity
+@Data
+@EqualsAndHashCode(callSuper = false)
 
-@NoArgsConstructor
-@AllArgsConstructor
+//@NoArgsConstructor
+//@AllArgsConstructor
 @Table(name = "salary")
+@ToString
 
-public class salary extends AbstractEntity {
+public class salary extends AbstractEntity implements Serializable {
+    public salary(Long id, Date create_date, String title, String comment, BigDecimal amount, ipeps.pwd.wallet.modele.gestionEmployees.employee employee) {
+        this.id = id;
+        this.create_date = create_date;
+        this.title = title;
+        this.comment = comment;
+        this.amount = amount;
+        this.employee = employee;
+    }
+    public salary(){
+
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private  Long id;
@@ -27,6 +42,10 @@ public class salary extends AbstractEntity {
     @Column(name="Comment")
     private  String comment;
     private BigDecimal amount;
+    @ManyToOne
+    private employee employee;
+
+
 
     public Long getId() {
         return id;

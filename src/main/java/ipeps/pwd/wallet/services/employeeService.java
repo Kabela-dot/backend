@@ -6,15 +6,15 @@ import java.util.Date;
 import java.util.List;
 
 public interface employeeService {
-    employeeDto Save(employeeDto dto);
-    employeeDto FindById(Long id);
-    employeeDto FindByLastname(String lastname);
-    employeeDto FindByFirstname(String firstname);
-    employeeDto FindByAdress(String adress);
-    employeeDto FindByGender(String gender);
-    employeeDto FindByBirthday(Date birthday);
-    employeeDto FindBySsin(String ssin);
-    List<employeeDto>FindAll();
+    employeeDto save(employeeDto dto);
+    employeeDto findById(Long id);
+    employeeDto findByLastname(String lastname);
+    employeeDto findByFirstname(String firstname);
+    employeeDto findByAdress(String adress);
+    employeeDto findByGender(String gender);
+    employeeDto findByBirthday(Date birthday);
+    employeeDto findBySsin(String ssin);
+    List<employeeDto>findAll();
     void  Delete(Long id);
 
 

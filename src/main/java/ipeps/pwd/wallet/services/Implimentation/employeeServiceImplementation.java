@@ -17,7 +17,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
+
 import java.lang.String;
 import java.util.stream.Collectors;
 
@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 
 
 public class employeeServiceImplementation implements employeeService {
-    private employeerepository employeerepository;
+    private final employeerepository employeerepository;
     @Autowired
     public employeeServiceImplementation(employeerepository employeerepository)
     {
@@ -37,9 +37,7 @@ public class employeeServiceImplementation implements employeeService {
     }
 
     @Override
-
-
-    public employeeDto Save( employeeDto dto) {
+    public employeeDto save( employeeDto dto) {
         List<String>errors= employeevalidator.validator(dto);
         if (!errors.isEmpty()){
             log.error("l'employe n'est pas valide {}",dto);
@@ -47,115 +45,114 @@ public class employeeServiceImplementation implements employeeService {
                     erreursCodes.EMPLOYEE_NOT_VALID, errors);
         }
         employee saveEmployee = employeerepository.save(employeeDto.toEntity(dto));
-        return employeeDto.fromEntity(employeerepository.save(employeeDto.toEntity(dto))) ;
+        return employeeDto.fromEntity(saveEmployee) ;
     }
 
     @Override
-    public employeeDto FindById(Long id) {
+    public employeeDto findById(Long id) {
         if(id==null){
             log.error("employee Id est nulle");
             return null;
         }
-        Optional<employee>employee=employeerepository.findById(id);
-        return Optional.of(employeeDto.fromEntity(employee.get())).orElseThrow(()->
-        new entityNotFoundException("Aucun employé avec l'ID =" + id + "" +
-                " n'est trouvé dans la BD", erreursCodes.EMPLOYEE_NOT_FOUND)
-        );
+        return employeerepository.findById(id)
+                .map(employeeDto::fromEntity)
+                .orElseThrow(()->new entityNotFoundException("Aucun employé avec l'ID =" + id + "" +
+                        " n'est trouvé dans la BD", erreursCodes.EMPLOYEE_NOT_FOUND));
+
     }
 
     @Override
-    public employeeDto FindByLastname(String lastname) {
+    public employeeDto findByLastname(String lastname) {
         if (!StringUtils.hasLength(lastname)){
             log.error("Le nom est null");
             return null;
         }
-        Optional<employee>employee = employeerepository.findByLastname(lastname);
-        return Optional.of(employeeDto.fromEntity(employee.get())).orElseThrow(()->
-                new entityNotFoundException("Aucun employé avec le nom =" + lastname + "" +
-                        " n'est trouvé dans la BD", erreursCodes.EMPLOYEE_NOT_FOUND)
-        );
+        return employeerepository.findByLastname(lastname)
+                .map(employeeDto::fromEntity)
+                .orElseThrow(()->new entityNotFoundException("Aucun employé avec le nom =" + lastname + "" +
+                        " n'est trouvé dans la BD", erreursCodes.EMPLOYEE_NOT_FOUND));
+
 
 
     }
 
     @Override
-    public employeeDto FindByFirstname( String firstname) {
+    public employeeDto findByFirstname( String firstname) {
         if (!StringUtils.hasLength(firstname)){
             log.error("Le prenom est null");
             return null;
         }
-        Optional<employee>employee = employeerepository.findByFirstname(firstname);
-        return Optional.of(employeeDto.fromEntity(employee.get())).orElseThrow(()->
-                new entityNotFoundException("Aucun employé avec le nom =" + firstname + "" +
-                        " n'est trouvé dans la BD", erreursCodes.EMPLOYEE_NOT_FOUND)
-        );
+        return employeerepository.findByFirstname(firstname)
+                .map(employeeDto::fromEntity)
+                .orElseThrow(()->new entityNotFoundException("Aucun employé avec le prenom =" + firstname + "" +
+                        " n'est trouvé dans la BD", erreursCodes.EMPLOYEE_NOT_FOUND));
+
 
 
 
     }
 
     @Override
-    public employeeDto FindByAdress(String adress) {
+    public employeeDto findByAdress(String adress) {
         if (!StringUtils.hasLength(adress)){
             log.error("l'adresse est null");
             return null;
         }
-        Optional<employee>employee = employeerepository.findByAdress(adress);
-        return Optional.of(employeeDto.fromEntity(employee.get())).orElseThrow(()->
-                new entityNotFoundException("Aucun employé avec le nom =" + adress + "" +
-                        " n'est trouvé dans la BD", erreursCodes.EMPLOYEE_NOT_FOUND)
-        );
+        return employeerepository.findByAdress(adress)
+                .map(employeeDto::fromEntity)
+                .orElseThrow(()->new entityNotFoundException("Aucun employé avec l'adresse =" + adress + "" +
+                        " n'est trouvé dans la BD", erreursCodes.EMPLOYEE_NOT_FOUND));
 
-
-    }
-
-    @Override
-    public employeeDto FindByGender(String gender) {
-        if (!StringUtils.hasLength(gender)){
-            log.error("le genre est null");
-            return null;
-        }
-        Optional<employee>employee = employeerepository.findByGender(gender);
-        return Optional.of(employeeDto.fromEntity(employee.get())).orElseThrow(()->
-                new entityNotFoundException("Aucun employé avec le nom =" + gender + "" +
-                        " n'est trouvé dans la BD", erreursCodes.EMPLOYEE_NOT_FOUND)
-        );
 
 
     }
 
     @Override
-    public employeeDto FindByBirthday(Date birthday) {
-        if (!StringUtils.hasLength((CharSequence) birthday)){
+    public employeeDto findByGender(String gender) {
+        if (!StringUtils.hasLength((CharSequence)  gender)){
             log.error("la date de naissance est null");
             return null;
         }
-        Optional<employee>employee = employeerepository.findByBirthday(birthday);
-        return Optional.of(employeeDto.fromEntity(employee.get())).orElseThrow(()->
-                new entityNotFoundException("Aucun employé avec le nom =" + birthday + "" +
-                        " n'est trouvé dans la BD", erreursCodes.EMPLOYEE_NOT_FOUND)
-        );
+        return employeerepository.findByGender(gender)
+                .map(employeeDto::fromEntity)
+                .orElseThrow(()->new entityNotFoundException("Aucun employé avec le genre =" + gender + "" +
+                        " n'est trouvé dans la BD", erreursCodes.EMPLOYEE_NOT_FOUND));
 
 
     }
 
     @Override
-    public employeeDto FindBySsin(String ssin) {
+    public employeeDto findByBirthday(Date birthday) {
+        if (!StringUtils.hasLength((CharSequence) birthday)) {
+            log.error("la date de naissance est null");
+            return null;
+        }
+            return employeerepository.findByBirthday(birthday)
+                    .map(employeeDto::fromEntity)
+                    .orElseThrow(() -> new entityNotFoundException("Aucun employé avec la date de naissance =" + birthday + "" +
+                            " n'est trouvé dans la BD", erreursCodes.EMPLOYEE_NOT_FOUND));
+
+
+
+    }
+
+    @Override
+        public employeeDto findBySsin(String ssin){
         if (!StringUtils.hasLength(ssin)){
             log.error("le numero ssin est null");
             return null;
         }
-        Optional<employee>employee = employeerepository.findBySsin(ssin);
-        return Optional.of(employeeDto.fromEntity(employee.get())).orElseThrow(()->
-                new entityNotFoundException("Aucun employé avec le nom =" + ssin  + "" +
-                        " n'est trouvé dans la BD", erreursCodes.EMPLOYEE_NOT_FOUND)
-        );
+            return employeerepository.findBySsin(ssin)
+                   .map(employeeDto::fromEntity)
+                   .orElseThrow(()->new entityNotFoundException("Aucun employé avec le nom =" + ssin + "" +
+                           " n'est trouvé dans la BD", erreursCodes.EMPLOYEE_NOT_FOUND));
+
 
 
     }
 
     @Override
-    public List<employeeDto> FindAll() {
+    public List<employeeDto> findAll() {
         return employeerepository.findAll().stream()
                 .map(employeeDto::fromEntity)
                 .collect(Collectors.toList());

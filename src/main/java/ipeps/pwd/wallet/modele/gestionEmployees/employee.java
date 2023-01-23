@@ -1,23 +1,46 @@
 package ipeps.pwd.wallet.modele.gestionEmployees;
 
 import ipeps.pwd.wallet.modele.AbstractEntity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GeneratorType;
+import ipeps.pwd.wallet.modele.gestionSalary.salary;
+import lombok.*;
+
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 
+
 @Entity
 
-@NoArgsConstructor
-@AllArgsConstructor
-
+@Data
+//@NoArgsConstructor
+//@AllArgsConstructor
+@EqualsAndHashCode(callSuper = false)
 @Table(name = "employee")
-public class employee extends AbstractEntity {
+@Embeddable
+public class employee extends AbstractEntity implements Serializable {
+    public employee(Long id, String lastname, String firstname, String active,
+                    String deleted_by, String adress, String gender, Date birthday,
+                    String ssin, String status, String deleted, List<salary> salaries) {
+        this.id = id;
+        this.lastname = lastname;
+        this.firstname = firstname;
+        this.active = active;
+        this.deleted_by = deleted_by;
+        this.adress = adress;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.ssin = ssin;
+        this.status = status;
+        this.deleted = deleted;
+        this.salaries = salaries;
+    }
+    public employee(){
+
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private  Long id;
@@ -27,13 +50,17 @@ public class employee extends AbstractEntity {
     private String firstname;
     private  String active;
     private  String deleted_by;
+    @Embedded
     private  String adress;
     private  String gender;
     private Date birthday;
     private  String ssin;
     private  String status;
     private  String deleted;
-    //private List<employee>employees;
+   @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+   //@JoinColumn(name = "id")
+   @MapsId(value = "id")
+    private List<salary> salaries;
 
     public Long getId() {
         return id;
@@ -47,9 +74,9 @@ public class employee extends AbstractEntity {
         return lastname;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
+    //public void setLastname(String lastname) {
+     //   this.lastname = lastname;
+    //}
 
     public String getFirstname() {
         return firstname;

@@ -4,7 +4,7 @@ import ipeps.pwd.wallet.modele.gestionSalary.salary;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.persistence.Column;
+
 import java.math.BigDecimal;
 import java.util.Date;
 @Builder
@@ -38,7 +38,7 @@ public class salaryDto {
         if(salaryDto==null){
             return  null;
         }
-       salary salary=new salary();
+       salary salary = new salary();
        salary.setAmount(salaryDto.getAmount());
        salary.setComment(salaryDto.getComment());
        salary.setCreate_date(salaryDto.getCreate_date());
