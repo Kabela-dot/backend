@@ -1,7 +1,7 @@
 package ipeps.pwd.wallet.modele.gestionEmployees;
 
 import ipeps.pwd.wallet.modele.AbstractEntity;
-import ipeps.pwd.wallet.modele.gestionSalary.salary;
+import ipeps.pwd.wallet.modele.gestionSalary.Salary;
 import lombok.*;
 
 
@@ -20,16 +20,16 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = false)
 @Table(name = "employee")
 @Embeddable
-public class employee extends AbstractEntity implements Serializable {
-    public employee(Long id, String lastname, String firstname, String active,
-                    String deleted_by, String adress, String gender, Date birthday,
-                    String ssin, String status, String deleted, List<salary> salaries) {
+public class Employee extends AbstractEntity implements Serializable {
+    public Employee(Long id, String lastname, String firstname, String active,
+                    String deleted_by, String address, String gender, Date birthday,
+                    String ssin, String status, String deleted, List<Salary> salaries) {
         this.id = id;
         this.lastname = lastname;
         this.firstname = firstname;
         this.active = active;
         this.deleted_by = deleted_by;
-        this.adress = adress;
+        this.address = address;
         this.gender = gender;
         this.birthday = birthday;
         this.ssin = ssin;
@@ -37,30 +37,28 @@ public class employee extends AbstractEntity implements Serializable {
         this.deleted = deleted;
         this.salaries = salaries;
     }
-    public employee(){
+    public Employee(){
 
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private  Long id;
-    @Column(name="Latsname")
     private String lastname;
-    @Column(name="Firstname")
     private String firstname;
-    private  String active;
-    private  String deleted_by;
-    @Embedded
-    private  String adress;
+    private String active;
+    private String deleted_by;
+    private  String address;
     private  String gender;
-    private Date birthday;
+    private  Date birthday;
     private  String ssin;
     private  String status;
     private  String deleted;
-   @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private  String keyword;
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
    //@JoinColumn(name = "id")
    @MapsId(value = "id")
-    private List<salary> salaries;
+    private List<Salary> salaries;
 
     public Long getId() {
         return id;
@@ -103,11 +101,11 @@ public class employee extends AbstractEntity implements Serializable {
     }
 
     public String getAdress() {
-        return adress;
+        return address;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getGender() {

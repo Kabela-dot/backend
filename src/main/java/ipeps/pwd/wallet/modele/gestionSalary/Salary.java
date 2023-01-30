@@ -1,7 +1,7 @@
 package ipeps.pwd.wallet.modele.gestionSalary;
 
 import ipeps.pwd.wallet.modele.AbstractEntity;
-import ipeps.pwd.wallet.modele.gestionEmployees.employee;
+import ipeps.pwd.wallet.modele.gestionEmployees.Employee;
 import lombok.*;
 
 import javax.persistence.*;
@@ -19,8 +19,8 @@ import java.util.Date;
 @Table(name = "salary")
 @ToString
 
-public class salary extends AbstractEntity implements Serializable {
-    public salary(Long id, Date create_date, String title, String comment, BigDecimal amount, ipeps.pwd.wallet.modele.gestionEmployees.employee employee) {
+public class Salary extends AbstractEntity implements Serializable {
+    public Salary(Long id, Date create_date, String title, String comment, BigDecimal amount, Employee employee) {
         this.id = id;
         this.create_date = create_date;
         this.title = title;
@@ -28,7 +28,7 @@ public class salary extends AbstractEntity implements Serializable {
         this.amount = amount;
         this.employee = employee;
     }
-    public salary(){
+    public Salary(){
 
     }
 
@@ -43,7 +43,7 @@ public class salary extends AbstractEntity implements Serializable {
     private  String comment;
     private BigDecimal amount;
     @ManyToOne
-    private employee employee;
+    private Employee employee;
 
 
 

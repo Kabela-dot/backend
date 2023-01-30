@@ -1,15 +1,14 @@
 package ipeps.pwd.wallet.validator;
 
-import ipeps.pwd.wallet.dto.employeeDto;
-import ipeps.pwd.wallet.dto.salaryDto;
+import ipeps.pwd.wallet.dto.SalaryDto;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class salaryvalidator {
+public class SalaryValidator {
 
-    public static   List<String> validator(salaryDto salaryDto) {
+    public static   List<String> validator(SalaryDto salaryDto) {
         List<String> errors = new ArrayList<>();
         if(salaryDto==null){
             errors.add("Veuillez renseigner le Titre !");

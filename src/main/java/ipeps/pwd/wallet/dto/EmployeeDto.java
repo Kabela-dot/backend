@@ -1,6 +1,6 @@
 package ipeps.pwd.wallet.dto;
 
-import ipeps.pwd.wallet.modele.gestionEmployees.employee;
+import ipeps.pwd.wallet.modele.gestionEmployees.Employee;
 import lombok.Builder;
 import lombok.Data;
 import javax.persistence.GeneratedValue;
@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import java.util.Date;
 @Builder
 @Data
-public class employeeDto {
+public class EmployeeDto {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private  Long id;
@@ -19,23 +19,23 @@ public class employeeDto {
     private String firstname;
     private  String active;
     private  String deleted_by;
-    private  String adress;
+    private  String address;
     private  String gender;
     private Date birthday;
     private  String ssin;
     private  String status;
     private  String deleted;
 
-    public static   employeeDto fromEntity(employee employee){
+    public static EmployeeDto fromEntity(Employee employee){
         if (employee==null){
             return null;
         }
         //Mapping de employee vers employeeDto
-     return employeeDto.builder()
+     return EmployeeDto.builder()
              .id(employee.getId())
              .lastname(employee.getLastname())
              .firstname(employee.getFirstname())
-             .adress(employee.getAdress())
+             .address(employee.getAddress())
              .active(employee.getActive())
              .deleted(employee.getDeleted())
              .birthday(employee.getBirthday())
@@ -48,17 +48,17 @@ public class employeeDto {
 
     }
     //Mapping de employeeDto vers employee
-    public static employee toEntity(employeeDto employeeDto)
+    public static Employee toEntity(EmployeeDto employeeDto)
     {
         if(employeeDto==null)
         {
             return null;
         }
-       employee employee=new employee();
+       Employee employee=new Employee();
         employee.setId(employeeDto.getId());
         employee.setActive(employeeDto.getActive());
         employee.setDeleted(employeeDto.getDeleted());
-        employee.setAdress(employeeDto.getAdress());
+        employee.setAddress(employeeDto.getAddress());
         employee.setBirthday(employeeDto.getBirthday());
         employee.setFirstname(employeeDto.getFirstname());
         employee.setGender(employeeDto.getGender());

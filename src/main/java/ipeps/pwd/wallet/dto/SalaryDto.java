@@ -1,6 +1,6 @@
 package ipeps.pwd.wallet.dto;
 
-import ipeps.pwd.wallet.modele.gestionSalary.salary;
+import ipeps.pwd.wallet.modele.gestionSalary.Salary;
 import lombok.Builder;
 import lombok.Data;
 
@@ -10,7 +10,7 @@ import java.util.Date;
 @Builder
 @Data
 
-public class salaryDto {
+public class SalaryDto {
 
     private Date create_date;
 
@@ -19,12 +19,12 @@ public class salaryDto {
     private  String comment;
     private BigDecimal amount;
     //Mapping de salary vers salaryDto
-    public static  salaryDto fromEntity(salary salary)
+    public static SalaryDto fromEntity(Salary salary)
     {
         if(salary==null){
             return  null;
         }
-        return salaryDto.builder()
+        return SalaryDto.builder()
                 .amount(salary.getAmount())
                 .comment(salary.getComment())
                 .create_date(salary.getCreate_date())
@@ -34,11 +34,11 @@ public class salaryDto {
 
     }
     //Mapping de salaryDto vers salary
-    public static    salary toEntity(salaryDto salaryDto){
+    public static Salary toEntity(SalaryDto salaryDto){
         if(salaryDto==null){
             return  null;
         }
-       salary salary = new salary();
+       Salary salary = new Salary();
        salary.setAmount(salaryDto.getAmount());
        salary.setComment(salaryDto.getComment());
        salary.setCreate_date(salaryDto.getCreate_date());

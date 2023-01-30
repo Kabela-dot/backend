@@ -3,7 +3,7 @@ package ipeps.pwd.wallet.intercepteur;
 import org.hibernate.EmptyInterceptor;
 import org.springframework.util.StringUtils;
 
-public class interceptor extends EmptyInterceptor {
+public class Interceptor extends EmptyInterceptor {
     @Override
     public String onPrepareStatement(String sql) {
         if (StringUtils.hasLength(sql)&& sql.toLowerCase().startsWith("select")){

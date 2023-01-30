@@ -1,8 +1,8 @@
 package ipeps.pwd.wallet.repository;
 
 
-import ipeps.pwd.wallet.dto.salaryDto;
-import ipeps.pwd.wallet.modele.gestionSalary.salary;
+import ipeps.pwd.wallet.dto.SalaryDto;
+import ipeps.pwd.wallet.modele.gestionSalary.Salary;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,20 +16,20 @@ import java.util.Optional;
 @ImportResource({"classpath*:application-context.xml"})
 
 @Repository
-public interface salaryrepository extends JpaRepository<salary, Long> {
-    salaryDto save(salaryDto dto);
+public interface SalaryRepository extends JpaRepository<Salary, Long> {
+    SalaryDto save(SalaryDto dto);
     //salaryDto findById(Long id);
     //salaryDto findByCreate_date( date);
     //salaryDto findByAmount(BigDecimal amount);
 
 
     @Override
-    List<salary> findAll();
+    List<Salary> findAll();
 
     void  Delete(Long id);
 
-    Optional<salary> findByCreate_date(Date date);
+    Optional<Salary> findByCreate_date(Date date);
 
-    Optional<salary> findByAmount(BigDecimal amount);
+    Optional<Salary> findByAmount(BigDecimal amount);
 
 }

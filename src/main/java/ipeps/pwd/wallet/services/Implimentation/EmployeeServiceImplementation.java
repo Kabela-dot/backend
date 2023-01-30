@@ -1,13 +1,13 @@
 package ipeps.pwd.wallet.services.Implimentation;
 
-import ipeps.pwd.wallet.dto.employeeDto;
+import ipeps.pwd.wallet.dto.EmployeeDto;
 import ipeps.pwd.wallet.exceptions.entityNotFoundException;
 import ipeps.pwd.wallet.exceptions.erreursCodes;
 import ipeps.pwd.wallet.exceptions.invalidEntityException;
-import ipeps.pwd.wallet.modele.gestionEmployees.employee;
-import ipeps.pwd.wallet.repository.employeerepository;
-import ipeps.pwd.wallet.services.employeeService;
-import ipeps.pwd.wallet.validator.employeevalidator;
+import ipeps.pwd.wallet.modele.gestionEmployees.Employee;
+import ipeps.pwd.wallet.repository.EmployeeRepository;
+import ipeps.pwd.wallet.services.EmployeeService;
+import ipeps.pwd.wallet.validator.EmployeeValidator;
 
 
 import lombok.extern.slf4j.Slf4j;
@@ -27,48 +27,48 @@ import java.util.stream.Collectors;
 @Slf4j
 
 
-public class employeeServiceImplementation implements employeeService {
-    private final employeerepository employeerepository;
+public class EmployeeServiceImplementation implements EmployeeService {
+    private final EmployeeRepository employeerepository;
     @Autowired
-    public employeeServiceImplementation(employeerepository employeerepository)
+    public EmployeeServiceImplementation(EmployeeRepository employeerepository)
     {
 
         this.employeerepository = employeerepository;
     }
 
     @Override
-    public employeeDto save( employeeDto dto) {
-        List<String>errors= employeevalidator.validator(dto);
+    public EmployeeDto save(EmployeeDto dto) {
+        List<String>errors= EmployeeValidator.validator(dto);
         if (!errors.isEmpty()){
             log.error("l'employe n'est pas valide {}",dto);
             throw new invalidEntityException("l'employé n'est pas valide",
                     erreursCodes.EMPLOYEE_NOT_VALID, errors);
         }
-        employee saveEmployee = employeerepository.save(employeeDto.toEntity(dto));
-        return employeeDto.fromEntity(saveEmployee) ;
+        Employee saveEmployee = employeerepository.save(EmployeeDto.toEntity(dto));
+        return EmployeeDto.fromEntity(saveEmployee) ;
     }
 
     @Override
-    public employeeDto findById(Long id) {
+    public EmployeeDto findById(Long id) {
         if(id==null){
             log.error("employee Id est nulle");
             return null;
         }
         return employeerepository.findById(id)
-                .map(employeeDto::fromEntity)
+                .map(EmployeeDto::fromEntity)
                 .orElseThrow(()->new entityNotFoundException("Aucun employé avec l'ID =" + id + "" +
                         " n'est trouvé dans la BD", erreursCodes.EMPLOYEE_NOT_FOUND));
 
     }
 
     @Override
-    public employeeDto findByLastname(String lastname) {
+    public EmployeeDto findByLastname(String lastname) {
         if (!StringUtils.hasLength(lastname)){
             log.error("Le nom est null");
             return null;
         }
         return employeerepository.findByLastname(lastname)
-                .map(employeeDto::fromEntity)
+                .map(EmployeeDto::fromEntity)
                 .orElseThrow(()->new entityNotFoundException("Aucun employé avec le nom =" + lastname + "" +
                         " n'est trouvé dans la BD", erreursCodes.EMPLOYEE_NOT_FOUND));
 
@@ -77,13 +77,13 @@ public class employeeServiceImplementation implements employeeService {
     }
 
     @Override
-    public employeeDto findByFirstname( String firstname) {
+    public EmployeeDto findByFirstname(String firstname) {
         if (!StringUtils.hasLength(firstname)){
             log.error("Le prenom est null");
             return null;
         }
         return employeerepository.findByFirstname(firstname)
-                .map(employeeDto::fromEntity)
+                .map(EmployeeDto::fromEntity)
                 .orElseThrow(()->new entityNotFoundException("Aucun employé avec le prenom =" + firstname + "" +
                         " n'est trouvé dans la BD", erreursCodes.EMPLOYEE_NOT_FOUND));
 
@@ -93,14 +93,14 @@ public class employeeServiceImplementation implements employeeService {
     }
 
     @Override
-    public employeeDto findByAdress(String adress) {
-        if (!StringUtils.hasLength(adress)){
+    public EmployeeDto findByAddress(String address) {
+        if (!StringUtils.hasLength(address)){
             log.error("l'adresse est null");
             return null;
         }
-        return employeerepository.findByAdress(adress)
-                .map(employeeDto::fromEntity)
-                .orElseThrow(()->new entityNotFoundException("Aucun employé avec l'adresse =" + adress + "" +
+        return employeerepository.findByAddress(address)
+                .map(EmployeeDto::fromEntity)
+                .orElseThrow(()->new entityNotFoundException("Aucun employé avec l'adresse =" + address + "" +
                         " n'est trouvé dans la BD", erreursCodes.EMPLOYEE_NOT_FOUND));
 
 
@@ -108,13 +108,13 @@ public class employeeServiceImplementation implements employeeService {
     }
 
     @Override
-    public employeeDto findByGender(String gender) {
+    public EmployeeDto findByGender(String gender) {
         if (!StringUtils.hasLength((CharSequence)  gender)){
             log.error("la date de naissance est null");
             return null;
         }
         return employeerepository.findByGender(gender)
-                .map(employeeDto::fromEntity)
+                .map(EmployeeDto::fromEntity)
                 .orElseThrow(()->new entityNotFoundException("Aucun employé avec le genre =" + gender + "" +
                         " n'est trouvé dans la BD", erreursCodes.EMPLOYEE_NOT_FOUND));
 
@@ -122,13 +122,13 @@ public class employeeServiceImplementation implements employeeService {
     }
 
     @Override
-    public employeeDto findByBirthday(Date birthday) {
+    public EmployeeDto findByBirthday(Date birthday) {
         if (!StringUtils.hasLength((CharSequence) birthday)) {
             log.error("la date de naissance est null");
             return null;
         }
             return employeerepository.findByBirthday(birthday)
-                    .map(employeeDto::fromEntity)
+                    .map(EmployeeDto::fromEntity)
                     .orElseThrow(() -> new entityNotFoundException("Aucun employé avec la date de naissance =" + birthday + "" +
                             " n'est trouvé dans la BD", erreursCodes.EMPLOYEE_NOT_FOUND));
 
@@ -137,13 +137,13 @@ public class employeeServiceImplementation implements employeeService {
     }
 
     @Override
-        public employeeDto findBySsin(String ssin){
+        public EmployeeDto findBySsin(String ssin){
         if (!StringUtils.hasLength(ssin)){
             log.error("le numero ssin est null");
             return null;
         }
             return employeerepository.findBySsin(ssin)
-                   .map(employeeDto::fromEntity)
+                   .map(EmployeeDto::fromEntity)
                    .orElseThrow(()->new entityNotFoundException("Aucun employé avec le nom =" + ssin + "" +
                            " n'est trouvé dans la BD", erreursCodes.EMPLOYEE_NOT_FOUND));
 
@@ -152,10 +152,17 @@ public class employeeServiceImplementation implements employeeService {
     }
 
     @Override
-    public List<employeeDto> findAll() {
+    public List<EmployeeDto> findAll() {
         return employeerepository.findAll().stream()
-                .map(employeeDto::fromEntity)
+                .map(EmployeeDto::fromEntity)
                 .collect(Collectors.toList());
+    }
+  @Override
+    public List<EmployeeDto> searchEmployee(String keyword){
+        List<EmployeeDto>employeeDtoList = employeerepository.findByNameContains(keyword).stream()
+                .map(EmployeeDto::fromEntity)
+                .collect(Collectors.toList());
+        return employeeDtoList;
     }
 
     @Override
@@ -167,4 +174,10 @@ public class employeeServiceImplementation implements employeeService {
         employeerepository.deleteById(id);
 
     }
+
+    @Override
+    public EmployeeDto findByNameContains(String keyword) {
+        return null;
+    }
+
 }

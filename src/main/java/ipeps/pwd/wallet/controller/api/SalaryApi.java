@@ -1,6 +1,6 @@
 package ipeps.pwd.wallet.controller.api;
 
-import ipeps.pwd.wallet.dto.salaryDto;
+import ipeps.pwd.wallet.dto.SalaryDto;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,19 +9,18 @@ import java.util.Date;
 import java.util.List;
 import static ipeps.pwd.wallet.utiles.constante.APP_ROOT;
 
-public interface salaryApi {
+public interface SalaryApi {
     @PostMapping(value = APP_ROOT + "/salary/create", consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-
-    salaryDto save(@RequestBody salaryDto salaryDto);
+    SalaryDto save(@RequestBody SalaryDto salaryDto);
     @GetMapping(value = APP_ROOT + "salary/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    salaryDto findById(@PathVariable ("id")Long id);
+    SalaryDto findById(@PathVariable ("id")Long id);
     @GetMapping(value = APP_ROOT + "salary/{create_date}", produces = MediaType.APPLICATION_JSON_VALUE)
-    salaryDto findByCreate_date(@PathVariable ("create_date") Date date);
+    SalaryDto findByCreate_date(@PathVariable ("create_date") Date date);
     @GetMapping(value = APP_ROOT + "salary/{amount}", produces = MediaType.APPLICATION_JSON_VALUE)
-    salaryDto findByAmount(@PathVariable("amount") BigDecimal amount);
+    SalaryDto findByAmount(@PathVariable("amount") BigDecimal amount);
     @GetMapping(value = APP_ROOT + "salary/all", produces = MediaType.APPLICATION_JSON_VALUE)
-    List<salaryDto> findAll();
+    List<SalaryDto> findAll();
     @DeleteMapping(APP_ROOT + "salary/delete/{id}")
     void  Delete(@PathVariable ("id") Long id);
 

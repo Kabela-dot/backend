@@ -1,16 +1,15 @@
 package ipeps.pwd.wallet.validator;
 
-import ipeps.pwd.wallet.dto.employeeDto;
-import org.springframework.util.StringUtils;
+import ipeps.pwd.wallet.dto.EmployeeDto;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.util.StringUtils.hasLength;
 
-public class employeevalidator {
+public class EmployeeValidator {
 
-    public  static List<String>validator(employeeDto employeeDto){
+    public  static List<String>validator(EmployeeDto employeeDto){
         List<String>errors= new ArrayList<>();
         if(employeeDto==null){
             errors.add("Veuillez annoncer l'adresse !");
@@ -21,7 +20,7 @@ public class employeevalidator {
 
         }
 
-        if(employeeDto.getAdress()==null)
+        if(employeeDto.getAddress()==null)
         {
             errors.add("Veuillez annoncer l'adresse !");
         }
